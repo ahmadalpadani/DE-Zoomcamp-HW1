@@ -1,6 +1,6 @@
 # DE-Zoomcamp-HW1
 
-Question 1:
+**Question 1:**
 
 Step 1:
 make container for image python=3.13
@@ -20,7 +20,8 @@ pip --version
 output
 ![alt text](image.png)
 
-Question 2:
+**Question 2:**
+
 Step 1:
 Make docker-compose.yaml in our directory 
 
