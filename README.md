@@ -37,18 +37,21 @@ docker-compose up
 acsess pgAdmin in browser by browsing to http://localhost:8080
 
 ### Step 4:
-Login with email: pgadmin@pgadmin.com, password: pgadmin
+Login with 
+- email: pgadmin@pgadmin.com
+- password: pgadmin
 
 ### Step 5:
-Configure:
-- General tab: 
-    Name: pgdatabase
+Configure 
 
-- Connection tab:
-    Host: postgres (the container name)
-    Port: 5432
-    Username: postgres
-    Password: postgres
+General tab: 
+- Name: pgdatabase
+
+Connection tab:
+- Host: postgres (the container name)
+- Port: 5432
+- Username: postgres
+- Password: postgres
 
 ### Output
 
