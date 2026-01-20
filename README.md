@@ -17,7 +17,7 @@ Check the version of PIP
 ```bash
 pip --version
 ```
-### output
+### Output
 
 ![alt text](image.png)
 
@@ -33,13 +33,13 @@ run docker compose
 docker-compose up
 ```
 
-### step 3:
+### Step 3:
 acsess pgAdmin in browser by browsing to http://localhost:8080
 
-### step 4:
+### Step 4:
 Login with email: pgadmin@pgadmin.com, password: pgadmin
 
-### step 5:
+### Step 5:
 Configure:
 - General tab: 
 Name: pgdatabase
@@ -50,7 +50,7 @@ Port: 5432
 Username: postgres
 Password: postgres
 
-### output
+### Output
 
 ![alt text](image-1.png)
 
@@ -58,7 +58,7 @@ Password: postgres
 
 ## Preparation Before Question 3:
 
-### step 1 : donwload all data 
+### Step 1 : donwload all data 
 
 run 
 
@@ -69,7 +69,7 @@ wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_z
 
 makesure data has downloaded in our directory 
 
-### step 2: load data to postgres (you can refer to Pipeline/ingest_data.py )
+### Step 2: load data to postgres (you can refer to Pipeline/ingest_data.py )
 
 ```python 
 import pandas as pd
@@ -139,7 +139,7 @@ AND lpep_pickup_datetime >= '2025-11-01'
 AND lpep_pickup_datetime <  '2025-12-02';
 ```
 
-### output:
+### Output:
 
 ![alt text](image-3.png)
 
@@ -153,7 +153,7 @@ ORDER BY trip_distance DESC
 LIMIT 1;
 ```
 
-### output:
+### Output:
 
 ![alt text](image-4.png)
 
@@ -173,7 +173,7 @@ GROUP BY pickup_loc, pickup_datetime
 LIMIT 1;
 ```
 
-### output:
+### Output:
 
 ![alt text](image-5.png)
 
@@ -195,7 +195,7 @@ ORDER BY largets_tip DESC
 LIMIT 1;
 ```
 
-### output:
+### Output:
 
 ![alt text](image-6.png)
 
