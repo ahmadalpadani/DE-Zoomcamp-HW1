@@ -11,7 +11,7 @@ docker run -it --rm\
 -- entrypoint=bash\
 python:3.13
 ```
-Step 2:
+### Step 2:
 Check the version of PIP
 
 ```bash
@@ -207,18 +207,18 @@ Reason and Method
 1. terraform init (Initialization)
 This is the first command that should be run after writing a new Terraform configuration.
 
-Function: It initializes a working directory containing Terraform configuration files.
-Actions: It downloads and installs the necessary provider plugins (e.g., for GCP, AWS, or Azure) and sets up the backend for storing the state file.
-Analogy: Similar to git init or npm install.
+- Function: It initializes a working directory containing Terraform configuration files.
+- Actions: It downloads and installs the necessary provider plugins (e.g., for GCP, AWS, or Azure) and sets up the backend for storing the state file.
+- Analogy: Similar to git init or npm install.
 
 2. terraform apply -auto-approve (Generate & Execute)
 Usually, the workflow is terraform plan followed by terraform apply. However, apply can perform both steps.
 
-Function: It creates an execution plan (showing what will be changed) and then applies those changes to reach the desired state.
-Flag -auto-approve: By default, apply asks for a manual "yes" confirmation. Using this flag skips the interactive prompt and executes the plan immediately.
+- Function: It creates an execution plan (showing what will be changed) and then applies those changes to reach the desired state.
+- Flag -auto-approve: By default, apply asks for a manual "yes" confirmation. Using this flag skips the interactive prompt and executes the plan immediately.
 
 3. terraform destroy (Cleanup)
 When you no longer need the infrastructure, you remove it to stop incurring costs.
 
-Function: It looks at the state file and removes every resource that Terraform created for that specific project.
+- Function: It looks at the state file and removes every resource that Terraform created for that specific project.
 
