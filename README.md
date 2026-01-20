@@ -1,8 +1,8 @@
 # DE-Zoomcamp-HW1
 
-**Question 1:**
+## Question 1:
 
-Step 1:
+### Step 1:
 make container for image python=3.13
 
 ```bash
@@ -17,29 +17,29 @@ Check the version of PIP
 ```bash
 pip --version
 ```
-output
+### output
 
 ![alt text](image.png)
 
-**Question 2:**
+## Question 2:
 
-Step 1:
+### Step 1:
 Make docker-compose.yaml in our directory 
 
-Step 2:
+### Step 2:
 run docker compose
 
 ```bash 
 docker-compose up
 ```
 
-step 3:
+### step 3:
 acsess pgAdmin in browser by browsing to http://localhost:8080
 
-step 4:
+### step 4:
 Login with email: pgadmin@pgadmin.com, password: pgadmin
 
-step 5:
+### step 5:
 Configure:
 - General tab: 
 Name: pgdatabase
@@ -50,23 +50,28 @@ Port: 5432
 Username: postgres
 Password: postgres
 
-output
+### output
 
 ![alt text](image-1.png)
 
 ![alt text](image-2.png)
 
-**Preparation Before Question 3:**
+## Preparation Before Question 3:
 
-step 1 : donwload all data 
+### step 1 : donwload all data 
 
-run wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz and wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv in our command line 
+run 
+
+```bash
+wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz 
+wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv in our command line
+``` 
 
 makesure data has downloaded in our directory 
 
-step 2: load data to postgres (you can refer to Pipeline/ingest_data.py )
+### step 2: load data to postgres (you can refer to Pipeline/ingest_data.py )
 
-```bash 
+```python 
 import pandas as pd
 from sqlalchemy import create_engine
 import click
@@ -124,7 +129,7 @@ if __name__ == "__main__":
     ingest_data()
 ```
 
-**Question 3:**
+## Question 3:
 
 ```bash
 SELECT COUNT(*)
@@ -134,11 +139,11 @@ AND lpep_pickup_datetime >= '2025-11-01'
 AND lpep_pickup_datetime <  '2025-12-02';
 ```
 
-output:
+### output:
 
 ![alt text](image-3.png)
 
-**Question 4:**
+## Question 4:
 
 ```bash
 SELECT lpep_pickup_datetime, trip_distance
@@ -148,11 +153,11 @@ ORDER BY trip_distance DESC
 LIMIT 1;
 ```
 
-output:
+### output:
 
 ![alt text](image-4.png)
 
-**Question 5:**
+## Question 5:
 
 ```bash 
 SELECT
@@ -168,11 +173,11 @@ GROUP BY pickup_loc, pickup_datetime
 LIMIT 1;
 ```
 
-output:
+### output:
 
 ![alt text](image-5.png)
 
-**Question 6:**
+## Question 6:
 
 ```bash 
 SELECT 
@@ -190,11 +195,11 @@ ORDER BY largets_tip DESC
 LIMIT 1;
 ```
 
-output:
+### output:
 
 ![alt text](image-6.png)
 
-**Question 7:**
+## Question 7:
 
 The correct sequence is: terraform init, terraform apply -auto-approve, terraform destroy
 
