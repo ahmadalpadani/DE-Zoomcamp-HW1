@@ -18,6 +18,7 @@ Check the version of PIP
 pip --version
 ```
 output
+
 ![alt text](image.png)
 
 **Question 2:**
@@ -50,5 +51,145 @@ Username: postgres
 Password: postgres
 
 output
+
 ![alt text](image-1.png)
+
 ![alt text](image-2.png)
+
+**Preparation Before Question 3:**
+
+step 1 : donwload all data 
+
+run wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz and wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv in our command line 
+
+makesure data has downloaded in our directory 
+
+step 2: load data to postgres (you can refer to Pipeline/ingest_data.py )
+
+```bash 
+import pandas as pd
+from sqlalchemy import create_engine
+import click
+
+
+@click.command()
+@click.option('--user', default='postgres', help='PostgreSQL user')
+@click.option('--password', default='postgres', help='PostgreSQL password')
+@click.option('--host', default='localhost', help='PostgreSQL host')
+@click.option('--port', default=5433, type=int, help='PostgreSQL port')
+@click.option('--db', default='ny_taxi', help='PostgreSQL database name')
+@click.option('--table', default='ny_taxi_data', help='Target table name')
+@click.option('--table1', default='ny_taxi_zone', help='Target table name')
+
+
+def ingest_data(user, password, host, port, db, table, table1):
+    
+    engine = create_engine(
+        f'postgresql://{user}:{password}@{host}:{port}/{db}'
+    )
+
+    df = pd.read_parquet("green_tripdata_2025-11.parquet")
+
+    df1 = pd.read_csv('taxi_zone_lookup.csv')
+
+    df.head(n=0).to_sql(
+        name=table,
+        con=engine,
+        if_exists='replace'
+    )
+
+
+    df.to_sql(
+        name=table,
+        con=engine,
+        if_exists='append'
+    )
+    print(f"Inserted data: {len(df)} rows")
+
+
+    df1.head(n=0).to_sql(
+        name=table1,
+        con=engine,
+        if_exists='replace'
+    )
+
+    df1.to_sql(
+        name=table1,
+        con=engine,
+        if_exists='append'
+    )
+    print(f"Inserted data: {len(df1)} rows")
+
+if __name__ == "__main__":
+    ingest_data()
+```
+
+**Question 3:**
+
+```bash
+SELECT COUNT(*)
+FROM ny_taxi_data
+WHERE trip_distance <= 1
+AND lpep_pickup_datetime >= '2025-11-01'
+AND lpep_pickup_datetime <  '2025-12-02';
+```
+
+output:
+
+![alt text](image-3.png)
+
+**Question 4:**
+
+```bash
+SELECT lpep_pickup_datetime, trip_distance
+FROM ny_taxi_data
+WHERE trip_distance < 100
+ORDER BY trip_distance DESC
+LIMIT 1;
+```
+
+output:
+
+![alt text](image-4.png)
+
+**Question 5:**
+
+```bash 
+SELECT
+    t.lpep_pickup_datetime AS pickup_datetime ,
+    SUM(t.total_amount),
+    zpu."Zone" AS "pickup_loc"
+FROM
+    ny_taxi_data t
+JOIN
+    ny_taxi_zone zpu ON t."PULocationID" = zpu."LocationID"
+WHERE lpep_pickup_datetime >= '2025-11-18' AND lpep_pickup_datetime < '2025-11-19'
+GROUP BY pickup_loc, pickup_datetime 
+LIMIT 1;
+```
+
+output:
+
+![alt text](image-5.png)
+
+**Question 6:**
+
+```bash 
+SELECT 
+	d.lpep_dropoff_datetime,
+	zdo."Zone",
+	SUM(d.tip_amount) as largets_tip
+FROM ny_taxi_data d
+JOIN
+    ny_taxi_zone zpu ON d."PULocationID" = zpu."LocationID"
+JOIN
+    ny_taxi_zone zdo ON d."DOLocationID" = zdo."LocationID"
+WHERE zpu."Zone" = 'East Harlem North' AND lpep_dropoff_datetime >= '2025-11-1' AND lpep_dropoff_datetime <'2025-12-1'
+GROUP BY lpep_dropoff_datetime, zdo."Zone"
+ORDER BY largets_tip DESC
+LIMIT 1;
+```
+
+output:
+
+![alt text](image-6.png)
