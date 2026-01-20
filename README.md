@@ -42,13 +42,13 @@ Login with email: pgadmin@pgadmin.com, password: pgadmin
 ### Step 5:
 Configure:
 - General tab: 
-Name: pgdatabase
+    Name: pgdatabase
 
 - Connection tab:
-Host: postgres (the container name)
-Port: 5432
-Username: postgres
-Password: postgres
+    Host: postgres (the container name)
+    Port: 5432
+    Username: postgres
+    Password: postgres
 
 ### Output
 
