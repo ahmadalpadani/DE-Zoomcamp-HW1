@@ -164,43 +164,45 @@ LIMIT 1;
 
 ```bash 
 SELECT
-    t.lpep_pickup_datetime AS pickup_datetime ,
-    SUM(t.total_amount),
-    zpu."Zone" AS "pickup_loc"
+	zpu."Zone" AS "pickup_loc",
+    SUM(t.total_amount) AS total_amount
 FROM
     ny_taxi_data t
 JOIN
     ny_taxi_zone zpu ON t."PULocationID" = zpu."LocationID"
 WHERE lpep_pickup_datetime >= '2025-11-18' AND lpep_pickup_datetime < '2025-11-19'
-GROUP BY pickup_loc, pickup_datetime 
+GROUP BY pickup_loc
+ORDER BY total_amount DESC
 LIMIT 1;
 ```
 
 ### Output:
 
-![alt text](image-5.png)
+![alt text](image-7.png)
 
 ## Question 6:
 
 ```bash 
 SELECT 
-	d.lpep_dropoff_datetime,
-	zdo."Zone",
-	SUM(d.tip_amount) as largets_tip
+    zdo."Zone" AS dropoff_zone,
+    MAX(d.tip_amount) AS largest_tip
 FROM ny_taxi_data d
-JOIN
-    ny_taxi_zone zpu ON d."PULocationID" = zpu."LocationID"
-JOIN
-    ny_taxi_zone zdo ON d."DOLocationID" = zdo."LocationID"
-WHERE zpu."Zone" = 'East Harlem North' AND lpep_dropoff_datetime >= '2025-11-1' AND lpep_dropoff_datetime <'2025-12-1'
-GROUP BY lpep_dropoff_datetime, zdo."Zone"
-ORDER BY largets_tip DESC
+JOIN ny_taxi_zone zpu 
+    ON d."PULocationID" = zpu."LocationID"
+JOIN ny_taxi_zone zdo 
+    ON d."DOLocationID" = zdo."LocationID"
+WHERE 
+    zpu."Zone" = 'East Harlem North'
+    AND d.lpep_pickup_datetime >= '2025-11-01'
+    AND d.lpep_pickup_datetime < '2025-12-01'
+GROUP BY zdo."Zone"
+ORDER BY largest_tip DESC
 LIMIT 1;
 ```
 
 ### Output:
 
-![alt text](image-6.png)
+![alt text](image-8.png)
 
 ## Question 7:
 
